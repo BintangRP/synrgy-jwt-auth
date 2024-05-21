@@ -1,0 +1,32 @@
+
+###
+GET http://localhost:3000/users
+Authorization: bearer-token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsIm5hbWUiOiJiaW50YW5nIiwiZW1haWwiOiJiaW50YW5nMUBnbWFpbC5jb20iLCJpYXQiOjE3MTYyMTgxNTUsImV4cCI6MTcxNjMwNDU1NX0.6_F48EdbOW7JBnkoYT5hmD-2zSWKvMe1RPBhSaThUtE
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name": "bintang",
+    "email": "bintang1@gmail.com",
+    "password": "123",
+    "confPassword":"123"
+}
+
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "bintang1@gmail.com",
+    "password": "123"
+}
+
+###
+GET http://localhost:3000/token
+
+
+###
+DELETE http://localhost:3000/logout
