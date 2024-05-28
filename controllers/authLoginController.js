@@ -65,7 +65,15 @@ export const Login = async (req, res) => {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000,
         })
-        res.json({ accessToken });
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000,
+        })
+        // res.cookie('refreshToken', refreshToken, {
+        //     httpOnly: true,
+        //     maxAge: 24 * 60 * 60 * 1000,
+        // })
+        res.json({ accessToken, refreshToken });
 
     } catch (error) {
         res.status(404).json({ msg: "Email not found.." })
@@ -73,7 +81,8 @@ export const Login = async (req, res) => {
 }
 
 export const Logout = async (req, res) => {
-    const refreshToken = req.cookies.refreshToken;
+    const refreshToken = req.body.refreshToken;
+    // console.log(req.body);
     if (!refreshToken) return res.sendStatus(204); // 204: no content
     const user = await Users.findAll({
         where: {

@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken";
 
 export const refreshToken = async (req, res) => {
     try {
-        const refreshToken = req.cookies.refreshToken;
+        // console.log(req.cookies.refreshToken);
+        const refreshToken = req.body.refreshToken;
         if (!refreshToken) return res.sendStatus(401); //unauthorize
 
         const user = await Users.findAll({
@@ -11,7 +12,7 @@ export const refreshToken = async (req, res) => {
                 refresh_token: refreshToken
             }
         });
-        if (!user[0]) return res.sendStatus(403); //forbidden
+        if (!user[0]) return res.sendStatus(403); // forbidden
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (error, decoded) => {
             if (error) return res.sendStatus(403);
             const userId = user[0].id;
